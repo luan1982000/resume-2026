@@ -1,0 +1,18 @@
+.list-socials {
+  @apply flex items-center;
+  @apply m-3;
+  a {
+    @apply h-[50px];
+    @apply w-auto;
+    @apply m-3;
+
+    filter: grayscale(1);
+    &:hover {
+      filter: grayscale(0);
+    }
+  }
+  .social-img {
+    @apply !w-[50px];
+    @apply w-auto;
+  }
+}

@@ -1,0 +1,105 @@
+.wrap-box {
+  display: flex;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+/* .wrapBox::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-typography);
+} */
+
+.badge {
+  font-size: 12px;
+  padding: 1px 10px;
+  display: inline-block;
+  margin-bottom: 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  background: var(--color-secondary2);
+  opacity: 0.8;
+}
+.list-project-card {
+  @apply w-full h-[200px];
+  @apply rounded-xl;
+  @apply flex flex-col items-center justify-center;
+  background: rgba(0, 123, 167, 0.31);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.2px);
+  -webkit-backdrop-filter: blur(6.2px);
+  border: 1px solid rgba(0, 123, 167, 0.22);
+  @apply p-2;
+  .list-project-card__title {
+    @apply mb-3;
+    @apply text-2xl;
+    @apply font-bold;
+    word-break: break-all;
+    @apply text-center;
+  }
+  .list-project-card__description {
+    @apply text-xl;
+    @apply font-bold;
+  }
+
+  &:hover {
+    &::after {
+      content: "View Detail";
+      @apply flex justify-center items-center;
+      @apply text-center align-middle;
+      @apply font-bold;
+      @apply w-full h-full;
+      @apply absolute right-0 top-0;
+      background: rgba(122, 152, 163, 0.89);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(6.2px);
+      -webkit-backdrop-filter: blur(6.2px);
+      border: 1px solid rgba(122, 152, 163, 0.22);
+    }
+  }
+}
+
+.modal-detail-project {
+  .ant-modal-content {
+    background: var(--color-secondary2);
+    color: var(--color-typography);
+    .line-info {
+      @apply w-full;
+      @apply rounded-lg;
+      @apply px-3;
+      @apply py-1;
+      @apply mb-2;
+      background: rgba(214, 229, 234, 0.89);
+      color: black;
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(6.2px);
+      -webkit-backdrop-filter: blur(6.2px);
+      border: 1px solid rgba(122, 152, 163, 0.22);
+      ol {
+        @apply list-disc;
+        @apply pl-4;
+      }
+      ul {
+        @apply flex items-center flex-wrap justify-center;
+        li {
+          @apply rounded-md m-2 p-2;
+          background: var(--color-primary);
+          color: white;
+        }
+      }
+      button {
+        background: var(--color-primary);
+        @apply p-2;
+        @apply rounded-xl;
+        color: white;
+      }
+    }
+  }
+}

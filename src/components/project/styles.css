@@ -1,0 +1,37 @@
+.card-info {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1.2px);
+  -webkit-backdrop-filter: blur(1.2px);
+  border: 1px solid rgba(0, 123, 167, 0.3);
+  border-radius: 8px;
+  padding: 8px 16px 16px 32px;
+  h3 {
+    display: inline-block;
+    margin: 0;
+    font-size: 50px;
+    font-weight: 700;
+    &::after {
+      content: "+";
+      position: absolute;
+      right: -24px;
+      font-size: 33px;
+      font-weight: 300;
+      top: 2px;
+    }
+  }
+  p {
+    padding-left: 45px;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 30px;
+      height: 1px;
+      background: var(--color-typography);
+    }
+  }
+}
+.ant-progress-text {
+  color: var(--color-typography) !important;
+}

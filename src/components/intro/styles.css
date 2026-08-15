@@ -1,0 +1,109 @@
+.color-block {
+  position: fixed;
+  height: 200%;
+  width: 100%;
+  transform: rotate(-15deg);
+  left: -83%;
+  top: -50%;
+  background: var(--color-primary);
+  @media only screen and (max-width: 991px) {
+    display: none;
+  }
+}
+.avatar {
+  object-fit: cover;
+  object-position: center;
+  max-height: calc(100vh - 80px);
+  z-index: 11;
+  border-radius: 30px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
+  margin-top: 40px;
+
+  @media only screen and (max-width: 991px) {
+    border-radius: 50%;
+    width: 270px;
+    height: 270px;
+    border: 4px solid #252525;
+    margin: 25px auto 25px auto;
+  }
+}
+
+.intro-description {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media only screen and (max-width: 991px) {
+    min-height: auto;
+  }
+  h1 {
+    font-size: 51px;
+    line-height: 62px;
+    font-weight: 700;
+    margin: 18px 0 10px;
+    position: relative;
+    padding-left: 70px;
+    @media only screen and (max-width: 991px) {
+      padding-left: 0px;
+      &::after {
+        display: none;
+      }
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 29px;
+      height: 4px;
+      width: 40px;
+      background: var(--color-primary);
+      border-radius: 10px;
+    }
+  }
+  p {
+    margin: 15px 0 28px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .content {
+    max-width: 550px;
+    margin: 0 auto;
+    @media only screen and (max-width: 991px) {
+      text-align: center;
+      padding: 20px 20px 100px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+/* YouTube Button Styling */
+.youtube-btn {
+  .after-fix {
+    background: #ff0000 !important; /* YouTube red */
+  }
+
+  &::after {
+    background: #ff0000 !important; /* YouTube red */
+  }
+
+  &:hover .btn-text {
+    color: #fff !important;
+  }
+}
+
+/* Responsive button layout */
+@media only screen and (max-width: 768px) {
+  .intro-description .content .flex {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .intro-description .content .flex > * {
+    width: 100%;
+    max-width: 280px;
+  }
+}

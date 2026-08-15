@@ -1,0 +1,26 @@
+.wrapBox {
+  display: flex;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+/* .wrapBox::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-typography);
+} */
+
+.badge {
+  font-size: 12px;
+  padding: 1px 10px;
+  display: inline-block;
+  margin-bottom: 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  background: var(--color-secondary2);
+  opacity: 0.8;
+}
