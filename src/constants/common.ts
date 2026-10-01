@@ -11,3 +11,12 @@ export const TABS = {
   CONTACT: "Contact",
   BUY_ME_COFFEE: "Donate",
 };
+
+export const ROUTES = {
+  HOME: "/",
+  ABOUT: "/about",
+  PROJECT: "/project",
+  ACHIEVEMENT: "/achievement",
+  CONTACT: "/contact",
+  DONATE: "/donate",
+};

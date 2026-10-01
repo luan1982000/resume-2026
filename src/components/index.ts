@@ -1,4 +1,3 @@
-export * from "./overview";
 export * from "./button";
 export * from "./overlay-loading";
 export * from "./about";

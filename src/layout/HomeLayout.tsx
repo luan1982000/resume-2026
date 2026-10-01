@@ -5,11 +5,18 @@ import sunSvg from "@/assest/image/svg/sun.svg";
 import { Particales } from "@/components/particales/Particales";
 import { THEMES } from "@/constants";
 import Image from "next/image";
-import { FC, ReactElement, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./styles.css";
 
 type Props = {
-  children: ReactElement;
+  children: ReactNode;
   menus: {
     label: string | ReactElement;
     icon?: string | ReactElement;

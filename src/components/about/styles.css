@@ -32,153 +32,121 @@
     }
   }
 }
-.ant-progress-text {
-  color: var(--color-typography) !important;
-}
-
 .skill-card {
-  background: rgba(7, 24, 46, 0.8);
-  border: 1px solid rgba(0, 183, 255, 0.2);
-  border-radius: 12px;
-  padding: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  transition: all 0.3s ease;
+  min-height: 92px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 183, 255, 0.18);
+  background: linear-gradient(
+    145deg,
+    rgba(0, 183, 255, 0.1),
+    rgba(7, 24, 46, 0.8)
+  );
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.skill-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 183, 255, 0.75),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
 .skill-card:hover {
-  border-color: rgba(0, 183, 255, 0.5);
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(0, 183, 255, 0.15);
+  border-color: rgba(0, 183, 255, 0.55);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 183, 255, 0.18);
   z-index: 10;
 }
 
-.skill-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.skill-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+.skill-card:hover::before {
+  opacity: 1;
 }
 
 .skill-name {
   margin: 0;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 700;
   color: var(--color-typography);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.skill-percent {
-  font-size: 12px;
-  font-weight: 700;
-  color: #00b7ff;
+html[data-theme="light"] .skill-card {
+  background: linear-gradient(
+    145deg,
+    rgba(0, 123, 167, 0.08),
+    rgba(255, 255, 255, 0.92)
+  );
+  border-color: rgba(0, 123, 167, 0.2);
 }
 
-.skill-progress-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
+html[data-theme="light"] .skill-card:hover {
+  border-color: rgba(0, 123, 167, 0.5);
+  box-shadow: 0 14px 32px rgba(0, 123, 167, 0.16);
 }
 
-.ant-progress-bg {
-  border-radius: 3px !important;
+html[data-theme="light"] .skill-card::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 123, 167, 0.7),
+    transparent
+  );
 }
 
-.ant-progress-inner {
-  border-radius: 3px !important;
+.skill-markmap-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-.skills-carousel-wrapper {
-  margin: 0 -12px;
-  position: relative;
-  padding: 0 60px;
-  overflow: visible;
+.skill-markmap {
+  display: block;
+  width: 100%;
+  min-width: 720px;
+  height: 600px;
 }
 
-.carousel-slide {
-  padding: 0 12px;
+.skill-markmap.markmap {
+  --markmap-text-color: var(--color-typography);
+  --markmap-circle-open-bg: var(--color-wrap);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
 }
 
-/* React-slick slide styles */
-.skills-carousel-wrapper .slick-slide {
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.skills-carousel-wrapper .slick-slide.slick-active {
-  opacity: 1;
-}
-
-.skills-carousel-wrapper .slick-slide.slick-center {
-  opacity: 1;
-}
-
-.skills-carousel-wrapper .slick-slide > div {
-  height: 100%;
-}
-
-/* Custom arrow styles for react-slick */
-.skills-carousel-wrapper .slick-prev,
-.skills-carousel-wrapper .slick-next {
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 183, 255, 0.1);
-  border: 1px solid rgba(0, 183, 255, 0.3);
-  border-radius: 50%;
-  z-index: 20;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.skills-carousel-wrapper .slick-prev:hover,
-.skills-carousel-wrapper .slick-next:hover {
-  background: rgba(0, 183, 255, 0.2);
-  border-color: rgba(0, 183, 255, 0.6);
-}
-
-.skills-carousel-wrapper .slick-prev {
-  left: 10px;
-}
-
-.skills-carousel-wrapper .slick-next {
-  right: 10px;
-}
-
-.skills-carousel-wrapper .slick-prev::before,
-.skills-carousel-wrapper .slick-next::before {
-  font-size: 16px;
-  color: #00b7ff;
-  opacity: 1;
-}
-
-.skills-carousel-wrapper .slick-prev:hover::before,
-.skills-carousel-wrapper .slick-next:hover::before {
-  color: #ffffff;
-}
-
-/* Prevent overflow issues on hover */
-.carousel-slide {
-  padding: 0 12px;
-  overflow: visible;
-}
-
-.skills-carousel-wrapper .slick-list {
-  overflow: visible;
-}
-
-.skills-carousel-wrapper .slick-track {
-  display: flex !important;
-  align-items: stretch;
-  overflow: visible;
+@media (max-width: 900px) {
+  .skill-markmap {
+    min-width: 560px;
+    height: 540px;
+  }
 }
 
 /* Personal Info Cards Styles */

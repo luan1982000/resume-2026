@@ -1,16 +1,21 @@
+"use client";
+
 import { blurImgBase64 } from "@/assest/image/blur-img";
 import avatarUrl from "@/assest/image/jpg/avatar.jpg";
 import arrowRight from "@/assest/image/svg/arrow-right.svg";
 import { Button } from "@/components";
-import { TABS } from "@/constants";
+import { ROUTES } from "@/constants";
 import { bounce, fade, moveLeft, moveUp } from "@/styles/effects";
 import { Col, Row } from "antd";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { OverlayLoading } from "..";
 import "./styles.css";
 
-export const Intro: React.FC<{ setActiveTab: any }> = ({ setActiveTab }) => {
+export const Intro: React.FC = () => {
+  const router = useRouter();
+
   return (
     <motion.section
       whileInView="visible"
@@ -84,7 +89,7 @@ export const Intro: React.FC<{ setActiveTab: any }> = ({ setActiveTab }) => {
                 <Button
                   buttonProps={{
                     className: "more-btn",
-                    onClick: () => setActiveTab(TABS.ABOUT),
+                    onClick: () => router.push(ROUTES.ABOUT),
                   }}
                   afterFix={
                     <Image

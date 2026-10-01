@@ -1,81 +1,43 @@
-import facePng from "@/assest/image/png/facebook.png";
-
-export const LIST_SKILLS = [
+export const SOFTWARE_SKILLS = [
   {
-    percent: 90,
-    name: "HTML",
-    // img: facePng,
+    name: "FRONTEND",
+    color: "#00b7ff",
+    skills: [
+      "HTML",
+      "CSS",
+      "SCSS",
+      "TAILWIND",
+      "BOOTSTRAP",
+      "JAVASCRIPT",
+      "TYPESCRIPT",
+      "JQUERY",
+      "REACT JS",
+      "NEXT JS",
+    ],
   },
   {
-    percent: 90,
-    name: "CSS",
+    name: "BACKEND",
+    color: "#22c55e",
+    skills: [
+      "NODE JS",
+      "EXPRESS JS",
+      "MY SQL",
+      "POSTGRESQL",
+      "MONGO DB",
+      "REDIS",
+      "PYTHON",
+    ],
   },
   {
-    percent: 90,
-    name: "SCSS",
+    name: "AI",
+    color: "#a855f7",
+    skills: ["LANGCHAIN"],
   },
   {
-    percent: 80,
-    name: "TAILWIND",
-  },
-  {
-    percent: 90,
-    name: "JAVASCRIPT",
-  },
-  {
-    percent: 80,
-    name: "JQUERY",
-  },
-  {
-    percent: 80,
-    name: "BOOTSTRAP",
-  },
-  {
-    percent: 80,
-    name: "TYPESCRIPT",
-  },
-  {
-    percent: 60,
-    name: "NODE JS",
-  },
-  {
-    percent: 60,
-    name: "EXPRESS JS",
-  },
-  {
-    percent: 80,
-    name: "NEXT JS",
-  },
-  {
-    percent: 90,
-    name: "REACT JS",
-  },
-  {
-    percent: 80,
-    name: "MY SQL",
-  },
-  {
-    percent: 60,
-    name: "MONGO DB",
-  },
-  {
-    percent: 80,
-    name: "DOCKER",
-  },
-  {
-    percent: 80,
-    name: "NGINX",
-  },
-  {
-    percent: 75,
-    name: "REDIS",
-  },
-  {
-    percent: 80,
-    name: "PYTHON",
-  },
-  {
-    percent: 85,
-    name: "POSTGRESQL",
+    name: "DEVOPS",
+    color: "#f59e0b",
+    skills: ["DOCKER", "NGINX", "AZURE"],
   },
 ];
+
+export const OTHER_SKILLS = ["Video Editor", "Content Creator"];

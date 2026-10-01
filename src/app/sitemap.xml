@@ -5,4 +5,29 @@
     <lastmod>2025-04-26</lastmod>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://www.luanluan.tech/about</loc>
+    <lastmod>2025-04-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.luanluan.tech/project</loc>
+    <lastmod>2025-04-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.luanluan.tech/achievement</loc>
+    <lastmod>2025-04-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.luanluan.tech/contact</loc>
+    <lastmod>2025-04-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.luanluan.tech/donate</loc>
+    <lastmod>2025-04-26</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>
