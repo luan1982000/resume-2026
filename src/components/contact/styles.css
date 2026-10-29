@@ -16,3 +16,88 @@
     @apply w-auto;
   }
 }
+
+.quote-card {
+  @apply rounded-2xl border border-solid p-6 md:p-8;
+  background: var(--color-wrap);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  box-shadow: 0 10px 40px color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+
+.quote-title {
+  @apply text-2xl font-bold mb-1;
+  color: var(--color-typography);
+}
+
+.quote-subtitle {
+  @apply mb-6;
+  color: var(--color-typography2);
+}
+
+.contact-form {
+  .ant-form-item {
+    @apply mb-4;
+  }
+  .ant-input,
+  .ant-input-affix-wrapper {
+    @apply rounded-xl;
+    background: transparent;
+    color: var(--color-typography);
+    border-color: color-mix(in srgb, var(--color-typography2) 45%, transparent);
+    &::placeholder {
+      color: var(--color-typography2);
+    }
+    &:hover,
+    &:focus,
+    &:focus-within {
+      border-color: var(--color-primary);
+    }
+    &:focus,
+    &:focus-within {
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+  }
+}
+
+.chip-group {
+  @apply flex flex-wrap gap-2;
+}
+
+.chip {
+  @apply rounded-full border border-solid px-4 py-1.5 text-sm cursor-pointer transition-colors;
+  background: transparent;
+  color: var(--color-typography);
+  border-color: color-mix(in srgb, var(--color-typography2) 45%, transparent);
+  &:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.chip-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.quote-upload.ant-upload-wrapper .ant-upload-drag {
+  @apply rounded-xl;
+  background: transparent;
+  border-color: color-mix(in srgb, var(--color-typography2) 45%, transparent);
+  &:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.quote-upload-title {
+  @apply font-medium;
+  color: var(--color-typography);
+}
+
+.quote-upload-hint {
+  @apply text-xs mt-1;
+  color: var(--color-typography2);
+}
+
+.quote-upload .ant-upload-list-item-name {
+  color: var(--color-typography);
+}

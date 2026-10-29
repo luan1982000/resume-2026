@@ -1,5 +1,13 @@
 import { moveUp } from "@/styles/effects";
-import { Col, Form, Input, message, Spin } from "antd";
+import {
+  Col,
+  Form,
+  Input,
+  message as antMessage,
+  Spin,
+  Upload,
+  UploadFile,
+} from "antd";
 import { motion } from "framer-motion";
 import { Button } from "@/components";
 import Image from "next/image";
@@ -8,24 +16,88 @@ import { useState } from "react";
 
 const { TextArea } = Input;
 
+const MAX_IMAGES = 3;
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
+const PROJECT_TYPES = [
+  "Website",
+  "Web app",
+  "Mobile app",
+  "Landing page",
+  "Khác",
+];
+const BUDGETS = [
+  "Dưới 10 triệu",
+  "10 – 30 triệu",
+  "30 – 100 triệu",
+  "Trên 100 triệu",
+  "Chưa xác định",
+];
+
+type ChipGroupProps = {
+  options: string[];
+  value?: string;
+  onChange?: (value: string) => void;
+};
+
+const ChipGroup: React.FC<ChipGroupProps> = ({ options, value, onChange }) => (
+  <div className="chip-group">
+    {options.map((option) => (
+      <button
+        key={option}
+        type="button"
+        aria-pressed={value === option}
+        className={`chip ${value === option ? "chip-active" : ""}`}
+        onClick={() => onChange?.(option)}
+      >
+        {option}
+      </button>
+    ))}
+  </div>
+);
+
 export const FeedbackForm: React.FC = () => {
   const [form] = Form.useForm();
+  const [message, contextHolder] = antMessage.useMessage();
   const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState<UploadFile[]>([]);
 
-  const handleSubmit = async (values: any) => {
+  const beforeUpload = (file: File) => {
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      message.error("Chỉ nhận ảnh JPEG, PNG hoặc WebP.");
+      return Upload.LIST_IGNORE;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      message.error("Mỗi ảnh tối đa 5MB.");
+      return Upload.LIST_IGNORE;
+    }
+    return false; // không upload tự động, gửi cùng form khi submit
+  };
+
+  const handleSubmit = async (values: Record<string, string>) => {
     setLoading(true);
     try {
+      const body = new FormData();
+      Object.entries(values).forEach(([key, value]) => {
+        if (value) body.append(key, value);
+      });
+      files.forEach((file) => {
+        if (file.originFileObj) body.append("images", file.originFileObj);
+      });
+
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
+        body,
       });
 
       if (response.ok) {
-        message.success("Your request has been sent successfully!");
+        message.success(
+          "Cảm ơn bạn đã gửi yêu cầu! Mình sẽ phản hồi trong vòng 24 giờ 💙",
+          5,
+        );
         form.resetFields();
+        setFiles([]);
       } else {
         message.error("Failed to send your request. Please try again.");
       }
@@ -38,67 +110,98 @@ export const FeedbackForm: React.FC = () => {
 
   return (
     <Col xs={24} md={12}>
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={handleSubmit}
-        className="contact-form"
-      >
-        <motion.div {...moveUp}>
-          <Form.Item
-            name="name"
-            className="mb-3"
-            label="Họ tên"
-            rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
-          >
-            <Input placeholder="Họ tên" />
-          </Form.Item>
-        </motion.div>
-        <motion.div {...moveUp}>
+      {contextHolder}
+      <motion.div {...moveUp} className="quote-card">
+        <h2 className="quote-title">Nhận báo giá dự án</h2>
+        <p className="quote-subtitle">
+          Mô tả nhanh về dự án, mình sẽ phản hồi trong vòng 24 giờ.
+        </p>
+        <Form
+          form={form}
+          layout="vertical"
+          size="large"
+          requiredMark={false}
+          onFinish={handleSubmit}
+          className="contact-form"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4">
+            <Form.Item
+              name="name"
+              label="Họ tên"
+              rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
+            >
+              <Input placeholder="Nguyễn Văn A" />
+            </Form.Item>
+            <Form.Item
+              name="phone"
+              label="Số điện thoại / Zalo"
+              rules={[
+                { required: true, message: "Vui lòng nhập số điện thoại" },
+              ]}
+            >
+              <Input placeholder="09xx xxx xxx" />
+            </Form.Item>
+          </div>
           <Form.Item
             name="email"
-            label="Your Email"
-            className="mb-3"
+            label="Email"
             rules={[
               { required: true, message: "Vui lòng nhập email" },
               { type: "email", message: "Email không hợp lệ" },
             ]}
           >
-            <Input placeholder="Email" />
+            <Input placeholder="ban@example.com" />
           </Form.Item>
-        </motion.div>
-        <motion.div {...moveUp}>
-          <Form.Item
-            name="phone"
-            label="Số điện thoại"
-            className="mb-3"
-            rules={[{ required: true, message: "Vui lòng nhập số điện thoại" }]}
-          >
-            <Input placeholder="Số điện thoại" />
+          <Form.Item name="projectType" label="Loại dự án">
+            <ChipGroup options={PROJECT_TYPES} />
           </Form.Item>
-        </motion.div>
-        <motion.div {...moveUp}>
           <Form.Item
             name="budget"
-            label="Ngân sách"
-            className="mb-3"
-            rules={[{ required: true, message: "Vui lòng nhập ngân sách" }]}
+            label="Ngân sách dự kiến"
+            rules={[{ required: true, message: "Vui lòng chọn ngân sách" }]}
           >
-            <Input placeholder="Chí phí bạn dự định dành cho dự án" />
+            <ChipGroup options={BUDGETS} />
           </Form.Item>
-        </motion.div>
-        <motion.div {...moveUp} className="mb-3">
           <Form.Item
             name="description"
-            label="Mô tả"
-            className="mb-3"
+            label="Mô tả dự án"
             rules={[{ required: true, message: "Vui lòng nhập mô tả" }]}
           >
-            <TextArea rows={4} placeholder="Mô tả một chút về dự án của bạn" />
+            <TextArea
+              rows={4}
+              placeholder="Dự án làm về gì, cần những tính năng nào, mong muốn hoàn thành khi nào..."
+            />
           </Form.Item>
-        </motion.div>
-        <motion.div {...moveUp}>
-          <Form.Item>
+          <Form.Item
+            label={
+              <>
+                Ảnh đính kèm&nbsp;
+                <span className="opacity-60">
+                  (tuỳ chọn, tối đa {MAX_IMAGES})
+                </span>
+              </>
+            }
+          >
+            <Upload.Dragger
+              multiple
+              accept={ALLOWED_TYPES.join(",")}
+              listType="picture"
+              fileList={files}
+              maxCount={MAX_IMAGES}
+              beforeUpload={beforeUpload}
+              onChange={({ fileList }) => setFiles(fileList)}
+              className="quote-upload"
+            >
+              <p className="quote-upload-title">
+                Bấm để chọn hoặc kéo thả ảnh vào đây
+              </p>
+              <p className="quote-upload-hint">
+                Mockup, wireframe, tham khảo · JPEG, PNG, WebP · tối đa 5MB mỗi
+                ảnh
+              </p>
+            </Upload.Dragger>
+          </Form.Item>
+          <Form.Item className="!mb-0">
             <Button
               buttonProps={{
                 className: "more-btn",
@@ -118,11 +221,11 @@ export const FeedbackForm: React.FC = () => {
                 )
               }
             >
-              Gửi yêu cầu
+              Gửi yêu cầu báo giá
             </Button>
           </Form.Item>
-        </motion.div>
-      </Form>
+        </Form>
+      </motion.div>
     </Col>
   );
 };

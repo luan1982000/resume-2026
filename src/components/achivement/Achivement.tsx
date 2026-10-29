@@ -1,10 +1,6 @@
 "use client";
 
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
-
 import { useState, useCallback } from "react";
-import Slider from "react-slick";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { OverlayLoading } from "..";
@@ -28,83 +24,103 @@ interface AwardItem {
   image?: StaticImageData;
   description: string;
   pdfUrl?: string;
+  group: "reward" | "certificate";
 }
 
 const listAwards: AwardItem[] = [
   {
     id: "1",
+    group: "reward",
     image: reward1,
     description: "Award 1 Description",
   },
   {
     id: "2",
+    group: "reward",
     image: reward2,
     description: "Award 2 Description",
   },
   {
     id: "3",
+    group: "reward",
     image: reward3,
     description: "Award 3 Description",
   },
   {
     id: "4",
+    group: "reward",
     image: reward4,
     description: "Award 4 Description",
   },
   {
     id: "5",
+    group: "reward",
     image: reward5,
     description: "Award 5 Description",
   },
   {
     id: "6",
+    group: "certificate",
     image: certiAiEnBa,
     description: "Certification in AI Engineering for Business Analysts",
   },
   {
     id: "7",
+    group: "certificate",
     image: certiAiEnDev,
     description: "Certification in AI Engineering for Developers",
   },
   {
     id: "certificate-claude-code",
+    group: "certificate",
     image: certificateClaudeCode,
     description: "Certification Claude Code",
   },
   {
     id: "cert-pdf-1",
+    group: "certificate",
     description: "Certificate of Completion",
     pdfUrl: "/pdf/certificate-ssophb6qxvzx-1781595049.pdf",
   },
   {
     id: "cert-pdf-2",
+    group: "certificate",
     description: "Certificate of Completion",
     pdfUrl: "/pdf/certificate-zqjg8pyak7ot-1781596090.pdf",
   },
   {
     id: "cert-pdf-3",
+    group: "certificate",
     description: "Certificate of Completion",
     pdfUrl: "/pdf/certificate-jjsh5s5ht2rz-1781596406.pdf",
   },
   {
     id: "cert-pdf-4",
+    group: "certificate",
     description: "Certificate of Completion",
     pdfUrl: "/pdf/certificate-jxmaawtdbdd3-1781596495.pdf",
   },
   {
     id: "cert-pdf-5",
+    group: "certificate",
     description: "Certificate of Completion",
     pdfUrl: "/pdf/certificate-wtvau9f445ah-1781596568.pdf",
   },
   {
     id: "cert-pdf-6",
+    group: "certificate",
     description: "Certificate of Completion",
     pdfUrl: "/pdf/certificate-n9t3tuziumj5-1781596780.pdf",
   },
 ];
 
+const SECTIONS: { group: AwardItem["group"]; title: string }[] = [
+  { group: "reward", title: "Rewards" },
+  { group: "certificate", title: "Certificates" },
+];
+
 const PdfThumbnail = ({ description }: { description: string }) => (
-  <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-lg border border-white/10 bg-gradient-to-br from-slate-800 to-slate-900 p-6">
+  <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-800 to-slate-900 p-6">
     <svg
       className="h-12 w-12 text-red-400"
       fill="currentColor"
@@ -116,9 +132,6 @@ const PdfThumbnail = ({ description }: { description: string }) => (
     <p className="line-clamp-2 text-center text-xs text-white/70">
       {description}
     </p>
-    <span className="text-[10px] uppercase tracking-wider text-primary/80">
-      Click to preview
-    </span>
   </div>
 );
 
@@ -132,41 +145,6 @@ export const Achievement = () => {
   const closePreview = useCallback(() => {
     setPreviewItem(null);
   }, []);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: true,
-    autoplay: true,
-    cssEase: "linear",
-    speed: 500,
-    autoplaySpeed: 2000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
 
   return (
     <div className="h-[100vh] overflow-hidden">
@@ -184,55 +162,64 @@ export const Achievement = () => {
             </Title>
           </motion.div>
           <motion.div
-            className="relative"
-            initial={{ opacity: 0, y: 40 }}
+            className="achv-hero"
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{
-              duration: 0.7,
-              delay: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <Slider {...settings}>
-              {listAwards?.map((award, index) => (
-                <div key={`award-${award.id}`} className="p-4">
-                  <motion.div
-                    className="w-full cursor-pointer"
-                    initial={{ opacity: 0, scale: 0.85, y: 20 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.5,
-                      delay: index * 0.1,
-                      ease: [0.25, 0.46, 0.45, 0.94],
-                    }}
-                    onClick={() => openPreview(award)}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    {award.image ? (
-                      <Image
-                        className="rounded-lg"
-                        src={award.image}
-                        placeholder="blur"
-                        blurDataURL={blurImgBase64}
-                        alt={award.description}
-                      />
-                    ) : (
-                      <PdfThumbnail description={award.description} />
-                    )}
-                  </motion.div>
-                </div>
-              ))}
-            </Slider>
-          </motion.div>
-          <div className="mt-4 flex justify-end">
-            <div className="card-info relative inline-block scale-75 origin-right py-1 px-3">
-              <h3 className="relative !text-3xl">{listAwards.length}</h3>
-              <p className="relative !text-xs !pl-8 before:!w-5 before:!top-[10px]">Rewards & Certificates</p>
+            <div className="achv-hero-number">
+              {listAwards.length}
+              <span>+</span>
             </div>
-          </div>
+            <p className="achv-hero-label">Rewards & Certificates</p>
+          </motion.div>
+
+          {SECTIONS.map(({ group, title }) => {
+            const items = listAwards.filter((award) => award.group === group);
+            return (
+              <section key={group}>
+                <h3 className="achv-section-title">
+                  {title}
+                  <span>{items.length}</span>
+                </h3>
+                <div className="achv-grid">
+                  {items.map((award, index) => (
+                    <motion.button
+                      type="button"
+                      key={`award-${award.id}`}
+                      className="achv-card"
+                      initial={{ opacity: 0, y: 32 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{
+                        duration: 0.5,
+                        delay: Math.min(index, 5) * 0.06,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                      }}
+                      onClick={() => openPreview(award)}
+                    >
+                      {award.image ? (
+                        <Image
+                          className="block w-full h-auto"
+                          src={award.image}
+                          placeholder="blur"
+                          blurDataURL={blurImgBase64}
+                          alt={award.description}
+                        />
+                      ) : (
+                        <PdfThumbnail description={award.description} />
+                      )}
+                      <div className="achv-card-caption">
+                        <span>{award.description}</span>
+                        <em>View ↗</em>
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       </div>
 

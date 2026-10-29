@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Col, Timeline } from "antd";
 import { motion } from "framer-motion";
 
 import { useState } from "react";
@@ -393,78 +392,52 @@ const LIST_PROJECTS = [
   },
 ];
 
-const ColMotion = motion.create(Col);
-
 export const ListProject = () => {
   const [projectSelected, setProjectSelected] = useState<any>(null);
   return (
-    <div className="mb-10">
-      <Timeline
-        mode="alternate"
-        className="timeline"
-        items={LIST_PROJECTS.map((i, index) => ({
-          label: <span className="timeline-date">{i.time}</span>,
-          children: (
-            <ColMotion
-              initial={{
-                opacity: 0,
-                x: index % 2 === 0 ? -40 : 40,
-                scale: 0.92,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-                scale: 1,
-              }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.08,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              span={24}
-              onClick={() => setProjectSelected(i)}
-            >
-              <div className="list-project-card relative">
-                {i?.link ? (
-                  <a
-                    href={i?.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="list-project-card__view"
-                  >
-                    <Button
-                      type="primary"
-                      size="small"
-                      onClick={(e) => {
-                        e?.stopPropagation?.();
-                      }}
-                    >
-                      Visit
-                    </Button>
-                  </a>
-                ) : null}
-                <div className="project-card-header">
-                  <div className="project-card-badge">{i.role}</div>
-                </div>
-                <div className="project-card-content">
-                  <div className="list-project-card__title">{i.name}</div>
-                  <div className="project-card-business">{i.business}</div>
-                  <div className="project-card-meta">
-                    <span className="team-size">Team: {i.size}</span>
-                  </div>
-                </div>
-                <div className="project-card-hover-overlay">
-                  <div className="hover-content">
-                    <span className="view-detail-text">View Details</span>
-                    <div className="hover-meta">Click to see more info</div>
-                  </div>
-                </div>
-              </div>
-            </ColMotion>
-          ),
-        }))}
-      />
+    <div className="project-list">
+      {LIST_PROJECTS.map((i, index) => (
+        <motion.article
+          key={i.id}
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: Math.min(index, 3) * 0.08 }}
+          className="project-row"
+          role="button"
+          tabIndex={0}
+          onClick={() => setProjectSelected(i)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") setProjectSelected(i);
+          }}
+        >
+          <div className="project-row-meta">
+            <span className="project-row-time">{i.time}</span>
+          </div>
+          <div className="project-row-body">
+            <h3 className="project-row-title">{i.name}</h3>
+            <p className="project-row-business">{i.business}</p>
+            <div className="project-row-tags">
+              <span className="project-tag project-tag-role">{i.role}</span>
+              <span className="project-tag">Team: {i.size}</span>
+            </div>
+          </div>
+          <div className="project-row-actions">
+            {i.link ? (
+              <a
+                href={i.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-visit"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Visit ↗
+              </a>
+            ) : null}
+            <span className="project-open">Details →</span>
+          </div>
+        </motion.article>
+      ))}
 
       <ModalDetail
         isOpen={Boolean(projectSelected)}

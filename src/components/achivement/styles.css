@@ -1,37 +1,157 @@
-.card-info {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(1.2px);
-  -webkit-backdrop-filter: blur(1.2px);
-  border: 1px solid rgba(0, 123, 167, 0.3);
-  border-radius: 8px;
-  padding: 8px 16px 16px 32px;
-  h3 {
-    display: inline-block;
-    margin: 0;
-    font-size: 50px;
-    font-weight: 700;
-    &::after {
-      content: "+";
-      position: absolute;
-      right: -24px;
-      font-size: 33px;
-      font-weight: 300;
-      top: 2px;
-    }
+.ant-progress-text {
+  color: var(--color-typography) !important;
+}
+
+.achv-hero {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 28px 32px;
+  border-radius: 6px 24px 6px 24px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  border-left: 3px solid var(--color-primary);
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--color-primary) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-primary) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    color-mix(in srgb, var(--color-primary) 4%, transparent);
+  background-size:
+    24px 24px,
+    24px 24px,
+    auto;
+}
+
+.achv-hero-number {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-primary);
+  span {
+    margin-left: 4px;
+    font-size: 40px;
+    font-weight: 300;
   }
-  p {
-    padding-left: 45px;
-    &::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 13px;
-      width: 30px;
-      height: 1px;
-      background: var(--color-typography);
+}
+
+.achv-hero-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-typography2);
+}
+
+.achv-section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 56px 0 24px;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-typography);
+  span {
+    padding: 3px 10px;
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--color-primary);
+  }
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+  }
+}
+
+.achv-grid {
+  columns: 1;
+  column-gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .achv-grid {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .achv-grid {
+    columns: 3;
+  }
+}
+
+.achv-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 0;
+  overflow: hidden;
+  break-inside: avoid;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 6px 22px 6px 22px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+  background: var(--color-wrap);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    transform: translateY(-6px);
+    border-color: var(--color-primary);
+    box-shadow: 0 16px 40px
+      color-mix(in srgb, var(--color-primary) 25%, transparent);
+
+    .achv-card-caption {
+      transform: translateY(0);
     }
   }
 }
-.ant-progress-text {
-  color: var(--color-typography) !important;
+
+.achv-card-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 36px 16px 14px;
+  background: linear-gradient(to top, rgba(7, 24, 46, 0.95), transparent);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.4;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  em {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-style: normal;
+    color: #7fd6f5;
+  }
+}
+
+@media (hover: none) {
+  .achv-card-caption {
+    transform: translateY(0);
+  }
 }

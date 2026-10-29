@@ -2,7 +2,7 @@
 
 import download from "@/assest/image/svg/download.svg";
 import { Button } from "@/components";
-import { fade, moveLeft, moveUp } from "@/styles/effects";
+import { moveLeft, moveUp } from "@/styles/effects";
 import { Col, Row } from "antd";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -11,8 +11,64 @@ import { Title } from "../title";
 import { Experience, OtherSkills, Skills } from "./_components";
 import "./styles.css";
 
-const RowMotion = motion.create(Row);
-const ColMotion = motion.create(Col);
+type InfoItem = {
+  label: string;
+  value: string;
+  href?: string;
+  status?: boolean;
+};
+
+const INFO_GROUPS: { title: string; items: InfoItem[] }[] = [
+  {
+    title: "Basic",
+    items: [
+      { label: "First Name", value: "Nguyen" },
+      { label: "Last Name", value: "Luan" },
+      { label: "Date of birth", value: "19/08/2000" },
+      { label: "Nationality", value: "Viet Nam" },
+      { label: "Address", value: "Ha Noi" },
+      { label: "Languages", value: "Viet Nam, English" },
+      { label: "Freelance", value: "Available", status: true },
+    ],
+  },
+  {
+    title: "Contact",
+    items: [
+      {
+        label: "Phone",
+        value: "+84367031442",
+        href: "tel:+84367031442",
+      },
+      {
+        label: "Email",
+        value: "luan1982000@gmail.com",
+        href: "mailto:luan1982000@gmail.com",
+      },
+      {
+        label: "Facebook",
+        value: "luanluan",
+        href: "https://www.facebook.com/luan.nguyenvanluan.393/",
+      },
+      {
+        label: "Youtube",
+        value: "KhungLongAnCo",
+        href: "https://www.youtube.com/@KhungLongAnCo2000",
+      },
+      {
+        label: "Tiktok",
+        value: "KhungLongAnCo",
+        href: "https://www.tiktok.com/@khunglonganco1908",
+      },
+    ],
+  },
+];
+
+const STATS = [
+  { value: 6, label: "Years of experience" },
+  { value: 30, label: "Completed projects" },
+  { value: 20, label: "Happy customers" },
+  { value: 3, label: "Awards won" },
+];
 
 export const About = () => {
   return (
@@ -36,282 +92,86 @@ export const About = () => {
           >
             <motion.div
               {...moveUp}
-              className="info-title text-2xl font-bold mb-4"
+              className="about-section-title !mt-0"
             >
-              PERSONAL INFOS
+              Personal Infos
             </motion.div>
-            <Row gutter={[24, 24]} align="top">
-              <Col
-                xs={24}
-                sm={24}
-                md={16}
-                lg={16}
-                xl={15}
-                className="wrap-info relative overflow-hidden"
-              >
-                <RowMotion
-                  animate="visible"
-                  transition={{
-                    delayChildren: 0.2,
-                    staggerChildren: 0.1,
-                  }}
-                  gutter={[20, 20]}
-                  className="personal-info-grid"
-                >
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
+            <Row gutter={[24, 24]} align="stretch">
+              <Col xs={24} lg={16}>
+                <motion.div {...moveUp} className="about-profile">
+                  <div className="about-groups">
+                    {INFO_GROUPS.map((group) => (
+                      <div key={group.title} className="about-group">
+                        <h4 className="about-group-title">{group.title}</h4>
+                        <dl>
+                          {group.items.map((item) => (
+                            <div key={item.label} className="about-row">
+                              <dt>{item.label}</dt>
+                              <dd>
+                                {item.status ? (
+                                  <span className="about-status">
+                                    {item.value}
+                                  </span>
+                                ) : item.href ? (
+                                  <a
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="about-link"
+                                  >
+                                    {item.value}
+                                  </a>
+                                ) : (
+                                  item.value
+                                )}
+                              </dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </div>
+                    ))}
+                  </div>
+                  <a
+                    href="/pdf/Nguyen-Van-Luan-2026.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-6"
+                    download="Nguyen-Van-Luan-2026.pdf"
                   >
-                    <div className="info-card">
-                      <span className="info-label">First Name:</span>
-                      <span className="info-value">Nguyen</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Last Name:</span>
-                      <span className="info-value">Luan</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Date of birth:</span>
-                      <span className="info-value">19/08/2000</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Nationality:</span>
-                      <span className="info-value">Viet Nam</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Freelance:</span>
-                      <span className="info-value">
-                        <span className="text-success">Available</span>
-                      </span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Address:</span>
-                      <span className="info-value">Ha Noi</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Phone:</span>
-                      <span className="info-value">+84367031442</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Email:</span>
-                      <span className="info-value">luan1982000@gmail.com</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Facebook:</span>
-                      <a
-                        className="info-link"
-                        href="https://www.facebook.com/luan.nguyenvanluan.393/"
-                        target="_blank"
-                      >
-                        luanluan
-                      </a>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Languages:</span>
-                      <span className="info-value">Viet Nam, English</span>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Youtube:</span>
-                      <a
-                        className="info-link"
-                        href="https://www.youtube.com/@KhungLongAnCo2000"
-                        target="_blank"
-                      >
-                        KhungLongAnCo
-                      </a>
-                    </div>
-                  </ColMotion>
-                  <ColMotion
-                    {...moveUp}
-                    xs={24}
-                    sm={12}
-                    md={8}
-                    lg={8}
-                    className="personal-info-item"
-                  >
-                    <div className="info-card">
-                      <span className="info-label">Tiktok:</span>
-                      <a
-                        className="info-link"
-                        href="https://www.tiktok.com/@khunglonganco1908"
-                        target="_blank"
-                      >
-                        KhungLongAnCo
-                      </a>
-                    </div>
-                  </ColMotion>
-                  <ColMotion {...fade} xs={12}>
-                    <a
-                      href="/pdf/Nguyen-Van-Luan-2026.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block"
-                      download="Nguyen-Van-Luan-2026.pdf"
+                    <Button
+                      buttonProps={{
+                        className: "more-btn",
+                      }}
+                      afterFix={
+                        <Image
+                          className="download"
+                          priority
+                          src={download}
+                          alt="download svg"
+                        />
+                      }
                     >
-                      <Button
-                        buttonProps={{
-                          className: "more-btn",
-                        }}
-                        afterFix={
-                          <Image
-                            className="download"
-                            priority
-                            src={download}
-                            alt="download svg"
-                          />
-                        }
-                      >
-                        VIEW CV
-                      </Button>
-                    </a>
-                  </ColMotion>
-                </RowMotion>
+                      VIEW CV
+                    </Button>
+                  </a>
+                </motion.div>
               </Col>
-              <Col xs={24} sm={24} md={8} lg={8} xl={9}>
-                <Row gutter={[16, 16]}>
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              <Col xs={24} lg={8}>
+                <div className="about-stats">
+                  {STATS.map((stat) => (
                     <motion.div
+                      key={stat.label}
                       {...moveLeft}
-                      className="card-info border-primary"
+                      className="about-stat"
                     >
-                      <h3 className="relative text-primary">6</h3>
-                      <p className="relative text-lg">
-                        YEARS OF <br /> EXPERIENCE
-                      </p>
+                      <div className="about-stat-number">
+                        {stat.value}
+                        <span>+</span>
+                      </div>
+                      <p className="about-stat-label">{stat.label}</p>
                     </motion.div>
-                  </Col>
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <motion.div
-                      {...moveLeft}
-                      className="card-info border-primary"
-                    >
-                      <h3 className="relative text-primary">30</h3>
-                      <p className="relative text-lg">
-                        COMPLETED <br />
-                        PROJECTS
-                      </p>
-                    </motion.div>
-                  </Col>
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <motion.div
-                      {...moveLeft}
-                      className="card-info border-primary"
-                    >
-                      <h3 className="relative text-primary">20</h3>
-                      <p className="relative text-lg">
-                        HAPPY
-                        <br /> CUSTOMERS
-                      </p>
-                    </motion.div>
-                  </Col>
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <motion.div
-                      {...moveLeft}
-                      className="card-info border-primary"
-                    >
-                      <h3 className="relative text-primary">3</h3>
-                      <p className="relative text-lg">
-                        AWARDS
-                        <br />
-                        WON
-                      </p>
-                    </motion.div>
-                  </Col>
-                </Row>
+                  ))}
+                </div>
               </Col>
             </Row>
           </motion.div>

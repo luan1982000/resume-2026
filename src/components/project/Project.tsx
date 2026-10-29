@@ -1,4 +1,3 @@
-import { Col, Progress, Row } from "antd";
 import { OverlayLoading } from "..";
 import { Title } from "../title";
 import "./styles.css";

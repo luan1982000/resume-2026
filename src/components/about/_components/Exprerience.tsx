@@ -1,4 +1,3 @@
-import { Col, Row, Grid, Progress } from "antd";
 import { motion } from "framer-motion";
 import briefCase from "@/assest/image/svg/brief-case.svg";
 import classes from "./styles.module.css";
@@ -28,9 +27,6 @@ const EXPERIENCES = {
   ],
 };
 
-const RowMotion = motion.create(Row);
-const ColMotion = motion.create(Col);
-
 export const Experience = () => {
   return (
     <motion.div
@@ -42,42 +38,29 @@ export const Experience = () => {
       }}
       className="mb-10"
     >
-      <motion.h3
-        {...moveUp}
-        className="mt-20 text-center font-bold text-2xl mb-20"
-      >
-        EXPERIENCE
+      <motion.h3 {...moveUp} className="about-section-title">
+        Experience
       </motion.h3>
-      <RowMotion
-        whileInView="visible"
-        transition={{
-          delay: 0.8,
-          delayChildren: 0.2,
-          staggerChildren: 0.1,
-        }}
-      >
-        {EXPERIENCES?.left?.map((i) => (
-          <ColMotion {...moveLeft} xs={24} lg={8} key={i.time}>
-            <div className={classes.wrapBox}>
-              <div className="icon min-w-[40px] h-[40px] flex items-center justify-center bg-primary rounded-full mr-3">
-                <Image
-                  className="brief-case w-[20px] h-[20px]"
-                  priority
-                  src={briefCase}
-                  alt="briefCase svg"
-                />
-              </div>
-              <div className="content">
-                <div className={classes.badge}>{i.time}</div>
-                <h5 className="font-bold mb-2 text-xl uppercase">
-                  {i.role} - {i.company}
-                </h5>
-                <p className="open-sans-font">{i.overview}</p>
-              </div>
+      <div className={classes.timeline}>
+        {EXPERIENCES.left.map((i) => (
+          <motion.div {...moveLeft} key={i.time} className={classes.item}>
+            <div className={classes.dot}>
+              <Image
+                className="brief-case w-[18px] h-[18px]"
+                priority
+                src={briefCase}
+                alt="briefCase svg"
+              />
             </div>
-          </ColMotion>
+            <div className={classes.card}>
+              <div className={classes.badge}>{i.time}</div>
+              <h5 className={classes.role}>{i.role}</h5>
+              <div className={classes.company}>{i.company}</div>
+              <p className="open-sans-font mb-0">{i.overview}</p>
+            </div>
+          </motion.div>
         ))}
-      </RowMotion>
+      </div>
     </motion.div>
   );
 };

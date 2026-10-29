@@ -1,7 +1,19 @@
-import { Instrument_Sans } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Instrument_Sans,
+  JetBrains_Mono,
+} from "next/font/google";
 import "./globals.css";
 
 const font = Instrument_Sans({ subsets: ["latin"] });
+const display = Bricolage_Grotesque({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-display",
+});
+const mono = JetBrains_Mono({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-mono",
+});
 
 export const metadata = {
   title: "Luan Luan (Levi) - Resume 2025 - Software engineer",
@@ -41,7 +53,7 @@ export default function RootLayout({
         href={process.env.NEXT_PUBLIC_DOMAIN || "https://www.luanluan.tech"}
         key="canonical"
       />
-      <body className={font.className}>{children}</body>
+      <body className={`${font.className} ${display.variable} ${mono.variable}`}>{children}</body>
     </html>
   );
 }
